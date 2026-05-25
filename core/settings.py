@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'agenda',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -110,6 +111,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+LOGIN_REDIRECT_URL = 'home'
+
+LOGOUT_REDIRECT_URL = 'login'
+
+LOGIN_URL = '/accounts/login/'
 
 
 # Static files (CSS, JavaScript, Images)

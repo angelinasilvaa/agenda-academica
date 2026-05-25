@@ -15,9 +15,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include  # <-- O 'include' é obrigatório aqui para importar as rotas das outras pastas!
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
+    # 1. Rota de administração nativa
     path('admin/', admin.site.urls),
+    
+    # 2. Rotas nativas de autenticação do Django (login, logout, reset de senha)
+    path('accounts/', include('django.contrib.auth.urls')),
+    
+    # 3. Rotas da nova aplicação de usuários (cadastro, confirmação)
+    path('accounts/', include('accounts.urls')),
+    
+    # 4. Rota principal do seu app de Agenda antiga
+    path('', include('agenda.urls')),
 ]
 
+# Libera a visualização das fotos de perfil carregadas pelo usuário no navegador
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
