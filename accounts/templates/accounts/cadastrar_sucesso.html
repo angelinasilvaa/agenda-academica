@@ -1,54 +1,154 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sucesso - Agenda Académica</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-light d-flex align-items-center justify-content-center" style="min-height: 100vh;">
-    <div class="card border-0 shadow-lg p-5 text-center" style="max-width: 500px; width: 100%; border-radius: 15px;">
-        <div class="text-success mb-4" style="font-size: 4rem;">
-            <i class="fa-solid fa-circle-check"></i>
-        </div>
-        <h3 class="fw-bold text-dark mb-3">Registo Concluído!</h3>
-        <p class="text-secondary mb-4">A tua conta foi criada com sucesso no sistema da Agenda Académica.</p>
-        
-        <div class="alert alert-warning border-0 text-start small mb-4 py-3" style="border-radius: 10px;">
-            <h6 class="fw-bold text-warning-emphasis mb-1">
-                <i class="fa-solid fa-circle-exclamation me-1"></i> Link de Validação
-            </h6>
-            <p class="mb-0 text-secondary">
-                Verifica o terminal do teu VS Code, copia o link gerado no e-mail simulado e cola-o na barra de endereços do teu navegador para ativares a conta.
-            </p>
-        </div>
-        <a href="{% url 'login' %}" class="btn btn-primary rounded-pill py-2 w-100">
-            <i class="fa-solid fa-right-to-bracket me-1"></i>Ir para o Login
-        </a>
-    </div>
-</body>
-</html>
+    
+    {% if erro %}
+        <title>Erro de Ativação - Agenda Académica</title>
+    {% else %}
+        <title>Sucesso - Agenda Académica</title>
+    {% endif %}
 
-<!DOCTYPE html>
-<html lang="pt-pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erro de Ativação - Agenda Académica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f1f5f9;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .card-notificacao {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+        }
+        
+        /* Estilos da Tela de Sucesso */
+        .bloco-icone-sucesso {
+            font-size: 60px;
+            color: #198754;
+            margin-bottom: 20px;
+        }
+        .caixa-alerta-validacao {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        .titulo-alerta-validacao {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #b78103;
+            margin-bottom: 5px;
+        }
+        .texto-alerta-validacao {
+            font-size: 0.82rem;
+            color: #6d4c41;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+        .btn-sucesso {
+            background-color: #198754;
+            color: white;
+        }
+        .btn-sucesso:hover {
+            background-color: #157347;
+            color: white;
+        }
+
+        /* Estilos da Tela de Erro */
+        .bloco-icone-erro {
+            font-size: 60px;
+            color: #dc3545;
+            margin-bottom: 20px;
+        }
+        .btn-erro {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-erro:hover {
+            background-color: #bb2d3b;
+            color: white;
+        }
+
+        /* Estrutura Comum */
+        .titulo-notificacao {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 10px;
+        }
+        .descricao-notificacao {
+            color: #6c757d;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+        .botao-acao-principal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+    </style>
 </head>
-<body class="bg-light d-flex align-items-center justify-content-center" style="min-height: 100vh;">
-    <div class="card border-0 shadow-lg p-5 text-center" style="max-width: 500px; width: 100%; border-radius: 15px;">
-        <div class="text-danger mb-4" style="font-size: 4rem;">
-            <i class="fa-solid fa-circle-xmark"></i>
-        </div>
-        <h3 class="fw-bold text-dark mb-3">Link Inválido ou Expirado</h3>
-        <p class="text-secondary mb-4">O token de ativação que utilizaste já não é válido ou já foi consumido.</p>
-        <a href="{% url 'cadastrar' %}" class="btn btn-primary rounded-pill py-2 w-100">
-            <i class="fa-solid fa-user-plus me-1"></i>Tentar Novo Registo
-        </a>
+<body>
+
+    <div class="card-notificacao shadow-lg">
+        
+        {% if erro %}
+            <div class="bloco-icone-erro">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+            
+            <h3 class="titulo-notificacao text-dark">Link Inválido ou Expirado</h3>
+            <p class="descricao-notificacao text-secondary">O token de ativação que utilizaste já não é válido, expirou ou já foi consumido anteriormente.</p>
+            
+            <a href="{% url 'cadastrar' %}" class="botao-acao-principal btn-erro">
+                <i class="fa-solid fa-user-plus"></i> Tentar Novo Registo
+            </a>
+
+        {% else %}
+            <div class="bloco-icone-sucesso">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            
+            <h3 class="titulo-notificacao text-dark">Registo Concluído!</h3>
+            <p class="descricao-notificacao text-secondary">A tua conta foi criada com sucesso no sistema da Agenda Académica.</p>
+            
+            <div class="caixa-alerta-validacao">
+                <h6 class="titulo-alerta-validacao">
+                    <i class="fa-solid fa-circle-exclamation"></i> Link de Ativação Obrigatório
+                </h6>
+                <p class="texto-alerta-validacao text-secondary">
+                    Verifica o terminal do teu <strong>VS Code</strong>, copia o link gerado no e-mail simulado e cola-o na barra de endereços do teu navegador para ativares a tua conta.
+                </p>
+            </div>
+
+            <a href="{% url 'login' %}" class="botao-acao-principal btn-sucesso">
+                <i class="fa-solid fa-right-from-bracket"></i> Ir para o Login
+            </a>
+        {% endif %}
+
     </div>
+
 </body>
 </html>

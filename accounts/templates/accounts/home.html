@@ -1,130 +1,640 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel da Agenda Académica</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-4">
-        <div class="container">
-            <span class="navbar-brand fw-bold">
-                <i class="fa-solid fa-graduation-cap me-2"></i>Agenda Académica
-            </span>
-            <div class="d-flex align-items-center">
-                {% if user.perfil.foto %}
-                    <img src="{{ user.perfil.foto.url }}" alt="Foto de Perfil" class="rounded-circle border border-2 border-white me-2" width="35" height="35" style="object-fit: cover;">
-                {% else %}
-                    <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white me-2" style="width: 35px; height: 35px; font-weight: bold;">
-                        {{ user.username|slice:":1"|upper }}
-                    </div>
-                {% endif %}
-                <span class="text-white me-3 fw-medium">{{ user.username }}</span>
-                <form action="{% url 'logout' %}" method="post" class="m-0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .wrapper-layout {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        .sidebar-cinza {
+            width: 260px;
+            background-color: #334155; 
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; 
+            padding: 25px 20px;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        .user-box-lateral {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .avatar-fixo-redondo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50% !important;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .avatar-icon-lateral {
+            font-size: 80px;
+            color: #cbd5e1;
+            line-height: 1;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .nome-usuario {
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: block;
+            word-wrap: break-word;
+        }
+
+        .subtexto-estudante {
+            font-size: 0.68rem;
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .botao-sair-container {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .btn-logout-lateral {
+            width: 100%;
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-logout-lateral:hover {
+            background-color: #dc2626;
+            color: white;
+        }
+
+        .formulario-logout-limpo {
+            margin: 0;
+        }
+
+        .conteudo-principal {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .titulo-pagina {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 30px;
+        }
+        
+        .titulo-pagina i {
+            color: #0d6efd;
+            margin-right: 0.5rem;
+        }
+
+        /* Alertas */
+        .caixa-alerta-compromissos {
+            background-color: #fff3cd;
+            border: 0;
+            border-left: 4px solid #ffc107;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 0.125rem;
+            max-width: 365px;
+        }
+
+        .titulo-alerta-compromissos {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .titulo-alerta-compromissos i {
+            color: #ffc107;
+            margin-right: 0.5rem;
+        }
+
+        .lista-alerta-compromissos {
+            margin-bottom: 0;
+            font-size: 0.875rem;
+            padding-left: 15px;
+        }
+
+        /* Container Vertical */
+        .fluxo-vertical-conteudo {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        /* Formulários */
+        .card-formulario-compromisso {
+            background-color: transparent;
+            border: 0;
+            padding: 0;
+            max-width: 365px;
+            width: 100%;
+        }
+
+        .titulo-card-compromisso {
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .titulo-card-compromisso i {
+            color: #212529;
+            margin-right: 0.5rem;
+        }
+
+        .grupo-campo-formulario {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+
+        .etiqueta-campo-painel {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin-bottom: 6px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .entrada-texto-painel, .selecao-campo-painel, .area-textarea-painel {
+            width: 100%;
+            display: block;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+        }
+
+        /* Botão Verde Estilizado Conforme o Print */
+        .btn-submeter-formulario {
+            width: 100%;
+            background-color: #198754;
+            color: white;
+            border: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            margin-top: 0.5rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-submeter-formulario:hover {
+            background-color: #157347;
+            color: white;
+        }
+
+        /* Caixa do Calendário Académico */
+        .suap-box {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 0.125rem;
+            padding: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            max-width: 365px;
+            width: 100%;
+        }
+
+        .titulo-calendario-suap {
+            text-align: center;
+            color: #212529;
+            font-weight: bold;
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        #calendar {
+            font-size: 0.72rem;
+            margin-bottom: 20px;
+        }
+
+        .fc .fc-toolbar-title {
+            font-size: 0.8rem !important;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #334155;
+        }
+
+        .fc .fc-toolbar {
+            margin-bottom: 0.5rem !important;
+        }
+
+        .fc .fc-button {
+            padding: 0.15rem 0.3rem !important;
+            font-size: 0.6rem !important;
+        }
+
+        /* Lista de Compromissos */
+        .titulo-lista-compromissos {
+            color: #212529;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+        
+        .titulo-lista-compromissos i {
+            color: #212529;
+            margin-right: 0.5rem;
+        }
+
+        .bloco-compromissos-container {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        /* Mudança de Fluxo para Empilhar Info e Botões */
+        .card-evento-unico {
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #dee2e6;
+            display: flex;
+            flex-direction: column; /* Força tudo a empilhar verticalmente */
+            align-items: flex-start; /* Alinha o conteúdo à esquerda */
+            gap: 10px;
+        }
+
+        .bloco-info-evento {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .texto-titulo-evento {
+            font-weight: 700;
+            color: #212529;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        /* Linha de metadados com as Badges e a Data */
+        .bloco-metadados-evento {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            color: #6c757d;
+        }
+
+        .etiqueta-tipo-evento {
+            font-size: 0.6rem;
+            padding: 2px 5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            border-radius: 0.125rem;
+            color: #fff;
+        }
+
+        .cracha-vermelho { background-color: #dc3545; }
+        .cracha-laranja { background-color: #ffc107; color: #212529; }
+        .cracha-verde { background-color: #198754; }
+        .cracha-azul { background-color: #0d6efd; }
+
+        /* Botões de ação posicionados logo abaixo conforme solicitado */
+        .bloco-botoes-acao-evento {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .indicador-evento-concluido {
+            color: #198754;
+            font-weight: 700;
+            font-size: 0.65rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .btn-acao-concluir {
+            background-color: transparent;
+            border: 1px solid #198754;
+            color: #198754;
+            font-weight: 400;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 2px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .btn-acao-concluir:hover {
+            background-color: #198754;
+            color: white;
+        }
+
+        .btn-acao-eliminar {
+            background-color: transparent;
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            font-weight: 400;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 2px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: all 0.2s;
+        }
+
+        .btn-acao-eliminar:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .caixa-sem-compromissos {
+            text-align: center;
+            color: #6c757d;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        /* Cores das Bordas Laterais dos Eventos */
+        .borda-concluido { border-left: 4px solid #6c757d; background-color: #f8f9fa; }
+        .borda-prova { border-left: 4px solid #dc3545; background-color: #fff5f5; }
+        .borda-trabalho { border-left: 4px solid #ffc107; background-color: #fffdf0; }
+        .borda-atividade { border-left: 4px solid #198754; background-color: #f4fbf7; }
+        .borda-padrao { border-left: 4px solid #0d6efd; background-color: #f0f7ff; }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper-layout">
+        
+        <aside class="sidebar-cinza">
+            <div>
+                <div class="user-box-lateral">
+                    {% if user.perfil.foto %}
+                        <img src="{{ user.perfil.foto.url }}" alt="Perfil" class="avatar-fixo-redondo">
+                    {% else %}
+                        <i class="fa-solid fa-circle-user avatar-icon-lateral"></i>
+                    {% endif %}
+                    
+                    <span class="nome-usuario">{{ user.username }}</span>
+                    <span class="subtexto-estudante">Estudante Ativo</span>
+                </div>
+            </div>
+
+            <div class="botao-sair-container">
+                <form action="{% url 'logout' %}" method="post" class="formulario-logout-limpo">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-outline-light btn-sm">
-                        <i class="fa-solid fa-right-from-bracket me-1"></i>Sair
+                    <button type="submit" class="btn-logout-lateral">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Sistema
                     </button>
                 </form>
             </div>
-        </div>
-    </nav>
+        </aside>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="card border-0 shadow-sm text-center p-4">
-                    <div class="position-relative d-inline-block mx-auto mb-3">
-                        {% if user.perfil.foto %}
-                            <img src="{{ user.perfil.foto.url }}" alt="Foto" class="rounded-circle border border-3 border-primary" width="140" height="140" style="object-fit: cover;">
-                        {% else %}
-                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white mx-auto shadow-sm" style="width: 140px; height: 140px; font-size: 3rem;">
-                                {{ user.username|slice:":1"|upper }}
-                            </div>
-                        {% endif %}
-                        <span class="position-absolute bottom-0 end-0 badge bg-success p-2 border border-2 border-white rounded-circle" title="E-mail Confirmado">
-                            <i class="fa-solid fa-check"></i>
-                        </span>
-                    </div>
-                    
-                    <h4 class="fw-bold mb-1">{{ user.first_name|default:user.username }}</h4>
-                    <p class="text-muted small mb-3">Estudante Ativo</p>
-                    
-                    <div class="border-top pt-3 text-start">
-                        <p class="mb-2 text-secondary"><i class="fa-solid fa-envelope me-2 text-primary"></i><strong>E-mail:</strong><br><span class="small">{{ user.email }}</span></p>
-                        <p class="mb-0 text-secondary"><i class="fa-solid fa-calendar-day me-2 text-primary"></i><strong>Acesso em:</strong><br><span class="small">Hoje, às {% now "H:i" %}</span></p>
-                    </div>
+        <main class="conteudo-principal">
+            
+            {% if alertas %}
+                <div class="caixa-alerta-compromissos" role="alert">
+                    <h6 class="titulo-alerta-compromissos">
+                        <i class="fa-solid fa-triangle-exclamation"></i>Atenção: Compromissos Próximos
+                    </h6>
+                    <ul class="lista-alerta-compromissos">
+                        {% for alerta in alertas %}
+                            <li><strong>{{ alerta.titulo }}</strong> está marcado para <strong>{{ alerta.data_hora|date:"d/m/Y \à\s H:i" }}</strong>.</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-            </div>
+            {% endif %}
 
-            <div class="col-md-8 mb-4">
-                <div class="card border-0 shadow-sm p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
-                        <h4 class="fw-bold text-dark mb-0">
-                            <i class="fa-regular fa-calendar-check me-2 text-primary"></i>Teus Compromissos Académicos
-                        </h4>
-                        <a href="{% url 'admin:agenda_compromisso_add' %}" target="_blank" class="btn btn-success btn-sm">
-                            <i class="fa-solid fa-plus me-1"></i>Novo Compromisso
-                        </a>
+            <h1 class="titulo-pagina"><i class="fa-solid fa-graduation-cap"></i>Agenda Acadêmica</h1>
+
+            <div class="fluxo-vertical-conteudo">
+                
+                <div class="card-formulario-compromisso">
+                    <h5 class="titulo-card-compromisso"><i class="fa-solid fa-calendar-plus"></i>Novo Compromisso</h5>
+                    
+                    <form action="{% url 'adicionar_compromisso' %}" method="post">
+                        {% csrf_token %}
+                        <div class="grupo-campo-formulario">
+                            <label class="etiqueta-campo-painel">Título</label>
+                            <input type="text" name="titulo" class="entrada-texto-painel" required placeholder="Ex: Frequência de Redes">
+                        </div>
+                        
+                        <div class="grupo-campo-formulario">
+                            <label class="etiqueta-campo-painel">Tipo de Evento</label>
+                            <select name="tipo" class="selecao-campo-painel">
+                                <option value="PROVA">Prova</option>
+                                <option value="TRABALHO">Trabalho</option>
+                                <option value="ATIVIDADE">Atividade</option>
+                                <option value="ATENDIMENTO">Atendimento</option>
+                                <option value="REPOSICAO">Reposição</option>
+                                <option value="OUTRO">Outro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="grupo-campo-formulario">
+                            <label class="etiqueta-campo-painel">Data e Hora</label>
+                            <input type="datetime-local" name="data_hora" class="entrada-texto-painel" required>
+                        </div>
+                        
+                        <div class="grupo-campo-formulario">
+                            <label class="etiqueta-campo-painel">Descrição / Local</label>
+                            <textarea name="descricao" class="area-textarea-painel" rows="2" placeholder="Opcional..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-submeter-formulario">
+                            <i class="fa-solid fa-check"></i> Agendar Evento
+                        </button>
+                    </form>
+                </div>
+
+                <div class="suap-box">
+                    <div class="titulo-calendario-suap">
+                        <i class="fa-solid fa-calendar-days"></i> Calendário Académico
+                    </div>
+                    
+                    <div id="calendar"></div>
+                    
+                    <div class="titulo-lista-compromissos">
+                        <i class="fa-solid fa-list-check"></i> Teus Compromissos
                     </div>
 
-                    {% if compromissos %}
-                        <div class="list-group list-group-flush">
+                    <div class="bloco-compromissos-container">
+                        {% if compromissos %}
                             {% for comp in compromissos %}
-                                <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3 border-bottom border-light">
-                                    <div>
-                                        <div class="d-flex align-items-center mb-1">
-                                            <h6 class="mb-0 fw-bold text-primary">{{ comp.titulo }}</h6>
-                                            <span class="badge rounded-pill ms-2 
-                                                {% if comp.tipo == 'PROVA' %}bg-danger
-                                                {% elif comp.tipo == 'TRABALHO' %}bg-warning text-dark
-                                                {% elif comp.tipo == 'ATIVIDADE' %}bg-success
-                                                {% elif comp.tipo == 'ATENDIMENTO' %}bg-info text-dark
-                                                {% elif comp.tipo == 'REPOSICAO' %}bg-primary
-                                                {% else %}bg-secondary{% endif %}">
-                                                {{ comp.get_tipo_display }}
-                                            </span>
+                                
+                                {% if comp.concluido %}
+                                    <div class="card-evento-unico borda-concluido">
+                                {% elif comp.tipo == 'PROVA' %}
+                                    <div class="card-evento-unico borda-prova">
+                                {% elif comp.tipo == 'TRABALHO' %}
+                                    <div class="card-evento-unico borda-trabalho">
+                                {% elif comp.tipo == 'ATIVIDADE' %}
+                                    <div class="card-evento-unico borda-atividade">
+                                {% else %}
+                                    <div class="card-evento-unico borda-padrao">
+                                {% endif %}
+                                    
+                                    <div class="bloco-info-evento">
+                                        <div class="texto-titulo-evento">
+                                            {{ comp.titulo }}
                                         </div>
-                                        <p class="text-muted mb-0 small"><i class="fa-regular fa-clock me-1"></i>{{ comp.data_hora|date:"d/m/Y - H:i" }}</p>
-                                        {% if comp.descricao %}
-                                            <p class="text-secondary small mt-1 mb-0"><i class="fa-solid fa-location-dot me-1"></i>{{ comp.descricao }}</p>
-                                        {% endif %}
+                                        
+                                        <div class="bloco-metadados-evento">
+                                            {% if comp.tipo == 'PROVA' %}
+                                                <span class="etiqueta-tipo-evento cracha-vermelho">{{ comp.get_tipo_display }}</span>
+                                            {% elif comp.tipo == 'TRABALHO' %}
+                                                <span class="etiqueta-tipo-evento cracha-laranja">{{ comp.get_tipo_display }}</span>
+                                            {% elif comp.tipo == 'ATIVIDADE' %}
+                                                <span class="etiqueta-tipo-evento cracha-verde">{{ comp.get_tipo_display }}</span>
+                                            {% else %}
+                                                <span class="etiqueta-tipo-evento cracha-azul">{{ comp.get_tipo_display }}</span>
+                                            {% endif %}
+                                            
+                                            <span>| {{ comp.data_hora|date:"d/m/Y H:i" }}</span>
+                                        </div>
                                     </div>
-                                    <div class="text-end">
+
+                                    <div class="bloco-botoes-acao-evento">
                                         {% if comp.concluido %}
-                                            <span class="badge bg-success-subtle text-success border border-success px-3 py-2 rounded-pill">
-                                                <i class="fa-solid fa-circle-check me-1"></i>Concluído
+                                            <span class="indicador-evento-concluido">
+                                                <i class="fa-solid fa-circle-check"></i> Ok
                                             </span>
                                         {% else %}
-                                            <span class="badge bg-warning-subtle text-warning border border-warning px-3 py-2 rounded-pill">
-                                                <i class="fa-regular fa-hourglass-half me-1"></i>Pendente
-                                            </span>
+                                            <a href="{% url 'concluir_compromisso' comp.pk %}" class="btn-acao-concluir">
+                                                <i class="fa-solid fa-check"></i> Concluir
+                                            </a>
                                         {% endif %}
+                                        
+                                        <a href="{% url 'eliminar_compromisso' comp.pk %}" class="btn-acao-eliminar" title="Eliminar">
+                                            <i class="fa-solid fa-trash-can"></i> Eliminar
+                                        </a>
                                     </div>
-                                </div>
+
+                                </div> 
                             {% endfor %}
-                        </div>
-                    {% else %}
-                        <div class="text-center py-5">
-                            <div class="text-muted mb-3" style="font-size: 3rem;">
-                                <i class="fa-regular fa-folder-open"></i>
+                        {% else %}
+                            <div class="caixa-sem-compromissos">
+                                Nenhum compromisso agendado.
                             </div>
-                            <h5 class="text-secondary">Nenhum compromisso agendado ainda!</h5>
-                            <p class="text-muted small">Clica no botão "Novo Compromisso" acima para adicionares a tua primeira tarefa académica.</p>
-                        </div>
-                    {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
+
             </div>
-        </div>
+        </main>
     </div>
 
-    <footer class="bg-white text-center py-3 border-top mt-5">
-        <p class="text-muted mb-0 small">&copy; 2026 Agenda Académica. Desenvolvido para a cadeira de Web 2.</p>
-    </footer>
+    <script id="dados-compromissos" type="application/json">
+        [
+            {% for comp in compromissos %}
+            {
+                "title": "{{ comp.titulo|escapejs }}",
+                "start": "{{ comp.data_hora|date:'Y-m-d' }}",
+                "concluido": {% if comp.concluido %}true{% else %}false{% endif %},
+                "tipo": "{{ comp.tipo|escapejs }}"
+            }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
+    </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var dadosElemento = document.getElementById('dados-compromissos');
+            var compromissosDoServidor = JSON.parse(dadosElemento.textContent || '[]');
+
+            var meusEventos = compromissosDoServidor.map(function(item) {
+                var cor = '#0d6efd';
+                if (item.concluido) {
+                    cor = '#198754';
+                } else if (item.tipo === 'PROVA') {
+                    cor = '#dc3545';
+                }
+                return {
+                    title: item.title,
+                    start: item.start,
+                    display: 'background',
+                    backgroundColor: cor
+                };
+            });
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'pt-pt',
+                height: 'auto',
+                headerToolbar: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'today'
+                },
+                buttonText: {
+                    today: 'Hoje'
+                },
+                events: meusEventos
+            });
+            calendar.render();
+        });
+    </script>
+
 </body>
 </html>

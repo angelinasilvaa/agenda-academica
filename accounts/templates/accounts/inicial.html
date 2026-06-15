@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Académica</title>
+    <link rel="stylesheet" href="{% static 'css/inicial.css' %}">
+</head>
+<body style="margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; font-family: sans-serif; background-color: #ffffff;">
+
+    <div style="max-width: 700px; padding: 20px;">
+        <h1 style="font-size: 3.5rem; font-weight: bold; margin: 0 0 20px 0; color: #000000; letter-spacing: -1px;">
+            Bem-vindo(a) a agenda academica!
+        </h1>
+        <p style="font-size: 1.3rem; margin: 0 0 40px 0; color: #555555; font-weight: 500; line-height: 1.5;">
+            Organize os seus compromissos, provas e atividades num só lugar.
+        </p>
+        
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <a href="{% url 'login' %}" style="display: inline-block; padding: 12px 35px; font-size: 1.1rem; font-weight: bold; color: #ffffff; background-color: #000000; text-decoration: none; border-radius: 50px; border: 2px solid #000000; transition: 0.2s;">
+                Acessar / Login
+            </a>
+            <a href="{% url 'cadastrar' %}" style="display: inline-block; padding: 12px 35px; font-size: 1.1rem; font-weight: bold; color: #000000; background-color: transparent; text-decoration: none; border-radius: 50px; border: 2px solid #000000; transition: 0.2s;">
+                Criar Conta
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
