@@ -23,7 +23,6 @@ body {
     overflow: hidden;
 }
 
-/* Layout Estrutural */
 .wrapper-layout {
     display: flex;
     height: 100vh;
@@ -32,7 +31,6 @@ body {
     position: relative;
 }
 
-/* Glows de fundo (Efeito futurista) */
 .wrapper-layout::before {
     content: '';
     position: absolute;
@@ -48,7 +46,6 @@ body {
     pointer-events: none;
 }
 
-/* Sidebar Customizada */
 .sidebar-cinza {
     width: 260px;
     background-color: var(--sidebar-bg) !important;
@@ -125,7 +122,6 @@ body {
     box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
 }
 
-/* Área de Conteúdo Principal */
 .conteudo-principal {
     flex-grow: 1;
     padding: 40px;
@@ -147,7 +143,6 @@ body {
     filter: drop-shadow(0 0 8px rgba(176, 228, 84, 0.5));
 }
 
-/* Layout de Fluxo - Transformado em Grid Lado a Lado para telas grandes */
 .fluxo-vertical-conteudo {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -156,7 +151,6 @@ body {
     align-items: start;
 }
 
-/* Caixas de Alerta (Aviso de pendências) */
 .caixa-alerta-compromissos {
     background-color: rgba(255, 193, 7, 0.1) !important;
     border: 1px solid rgba(255, 193, 7, 0.3) !important;
@@ -178,7 +172,6 @@ body {
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* Formulário de Cadastro de Eventos (Cards Estilo Glassmorphism) */
 .card-formulario-compromisso, .suap-box {
     background: var(--card-bg) !important;
     border: 1px solid rgba(176, 228, 84, 0.15) !important;
@@ -207,7 +200,6 @@ body {
     color: var(--accent) !important;
 }
 
-/* Inputs do Painel */
 .entrada-texto-painel, .selecao-campo-painel, .area-textarea-painel {
     background-color: rgba(255, 255, 255, 0.03) !important;
     border: 1px solid rgba(176, 228, 84, 0.2) !important;
@@ -229,7 +221,6 @@ body {
     font-weight: 600;
 }
 
-/* Botão de Agendar (Principal Verde) */
 .btn-submeter-formulario {
     background-color: var(--accent) !important;
     color: #0D0D0D !important;
@@ -246,7 +237,6 @@ body {
     box-shadow: 0 12px 25px rgba(176, 228, 84, 0.35);
 }
 
-/* FullCalendar Customização Dark */
 #calendar {
     font-size: 0.8rem;
     color: #ffffff;
@@ -275,7 +265,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Lista de Cards de Eventos Agendados */
 .bloco-compromissos-container {
     border-top: 1px solid rgba(234, 255, 208, 0.1);
     padding-top: 15px;
@@ -305,7 +294,6 @@ body {
     font-size: 0.75rem;
 }
 
-/* Badges (Crachás) de Categoria */
 .etiqueta-tipo-evento {
     border-radius: 6px;
     padding: 3px 8px;
@@ -317,7 +305,6 @@ body {
 .cracha-verde { background-color: #198754; color: #fff; }
 .cracha-azul { background-color: #0d6efd; color: #fff; }
 
-/* Botões de Ação da Lista */
 .bloco-botoes-acao-evento {
     margin-top: 5px;
 }
@@ -356,14 +343,12 @@ body {
     font-style: italic;
 }
 
-/* Modificadores de Borda Lateral dos Eventos */
 .borda-concluido { border-left: 4px solid #4b5563 !important; background: rgba(255, 255, 255, 0.01) !important; opacity: 0.6; }
 .borda-prova { border-left: 4px solid #dc3545 !important; }
 .borda-trabalho { border-left: 4px solid #fd7e14 !important; }
 .borda-atividade { border-left: 4px solid #198754 !important; }
 .borda-padrao { border-left: 4px solid #0d6efd !important; }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .wrapper-layout {
         flex-direction: column;
