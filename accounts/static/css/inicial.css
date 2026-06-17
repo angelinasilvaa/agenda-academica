@@ -29,8 +29,6 @@ body{
     position: relative;
 }
 
-/* Glow moderno de fundo */
-
 body::before{
     content: '';
     position: absolute;
@@ -67,8 +65,6 @@ body::after{
     left: -200px;
 }
 
-/* Card central */
-
 body > div{
     position: relative;
     z-index: 2;
@@ -92,8 +88,6 @@ body > div{
     animation: fadeIn 0.8s ease;
 }
 
-/* Título */
-
 h1{
     font-size: clamp(3rem, 6vw, 5.5rem);
     font-weight: 900;
@@ -106,8 +100,6 @@ h1{
     color: var(--text);
 }
 
-/* Texto */
-
 p{
     max-width: 650px;
     margin: 0 auto 3rem auto;
@@ -118,16 +110,12 @@ p{
     color: rgba(234, 255, 208, 0.75);
 }
 
-/* Botões container */
-
 body > div > div{
     display: flex;
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
 }
-
-/* Botões base */
 
 a{
     text-decoration: none;
@@ -143,8 +131,6 @@ a{
     font-size: 1rem;
 }
 
-/* LOGIN (principal) */
-
 a:first-child{
     background: var(--accent);
     color: #0D0D0D;
@@ -156,8 +142,6 @@ a:first-child:hover{
     transform: translateY(-4px);
     box-shadow: 0 18px 40px rgba(176, 228, 84, 0.35);
 }
-
-/* CRIAR CONTA (secundário) */
 
 a:last-child{
     background: transparent;
@@ -173,21 +157,6 @@ a:last-child:hover{
 
     transform: translateY(-4px);
 }
-
-/* Animação de entrada */
-
-@keyframes fadeIn{
-    from{
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to{
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsivo */
 
 @media (max-width: 768px){
 
