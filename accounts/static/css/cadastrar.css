@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --bg: #0D0D0D;
+    --text: #EAFFD0;
+    --primary: #224F10;
+    --accent: #B0E454;
+    --card-bg: rgba(20, 20, 20, 0.6);
+    --input-bg: rgba(255, 255, 255, 0.03);
+    --input-border: rgba(176, 228, 84, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body.fundo-autenticacao {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Efeito de Luz de Fundo (Glow Futurista) */
+body.fundo-autenticacao::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: var(--primary);
+    border-radius: 50%;
+    filter: blur(180px);
+    opacity: 0.3;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Centralização e Estrutura do Card */
+.card-cadastro {
+    background: var(--card-bg) !important;
+    border: 1px solid rgba(176, 228, 84, 0.15) !important;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border-radius: 24px !important;
+    padding: 40px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6) !important;
+    z-index: 1;
+}
+
+/* Cabeçalho do Formulário */
+.topo-formulario {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.circulo-icone-cadastro {
+    width: 65px;
+    height: 65px;
+    background-color: var(--primary) !important;
+    color: var(--accent) !important;
+    border: 1px solid rgba(176, 228, 84, 0.3);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    box-shadow: 0 0 20px rgba(34, 79, 16, 0.5);
+    filter: drop-shadow(0 0 5px rgba(176, 228, 84, 0.3));
+}
+
+.titulo-sistema {
+    color: var(--text) !important;
+    font-weight: 800;
+    font-size: 1.6rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+}
+
+.subtitulo-sistema {
+    color: rgba(234, 255, 208, 0.6) !important;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+/* Alertas de Erro Globais */
+.caixa-alerta-erro {
+    background-color: rgba(239, 68, 68, 0.1) !important;
+    border: 1px solid rgba(239, 68, 68, 0.2) !important;
+    color: #ef4444 !important;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Blocos de Campos do Formulário */
+.bloco-campo {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.etiqueta-campo {
+    color: rgba(234, 255, 208, 0.8) !important;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Grupo de Inputs com Ícone Lateral */
+.grupo-caixa-texto {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--input-border);
+    transition: all 0.3s ease;
+    background-color: var(--input-bg);
+}
+
+.grupo-caixa-texto:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(176, 228, 84, 0.25);
+}
+
+.icone-lateral-campo {
+    background-color: rgba(255, 255, 255, 0.02) !important;
+    border-right: 1px solid rgba(176, 228, 84, 0.1);
+    color: rgba(234, 255, 208, 0.4) !important;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+}
+
+.icone-lateral-campo i {
+    color: rgba(234, 255, 208, 0.5) !important;
+}
+
+/* Campos de Texto e Upload */
+.entrada-texto {
+    background-color: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    width: 100%;
+    outline: none;
+}
+
+.entrada-texto::placeholder {
+    color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Estilo para campos do tipo File (Input de foto) */
+.entrada-texto[type="file"] {
+    color: rgba(234, 255, 208, 0.6) !important;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.entrada-texto[type="file"]::-webkit-file-upload-button {
+    background: var(--primary);
+    border: 1px solid rgba(176, 228, 84, 0.3);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-right: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.entrada-texto[type="file"]::-webkit-file-upload-button:hover {
+    background: var(--accent);
+    color: #000000;
+}
+
+/* Estados de Erro específicos no Input */
+.entrada-com-erro {
+    border-color: rgba(239, 68, 68, 0.5) !important;
+}
+
+.notificacao-erro-validacao {
+    color: #ef4444;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 6px;
+    padding-left: 4px;
+}
+
+/* Botão de Finalizar Registro (Neon Principal) */
+.botao-finalizar-registo {
+    width: 100%;
+    background-color: var(--accent) !important;
+    color: #0D0D0D !important;
+    border: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px;
+    border-radius: 12px;
+    margin-top: 10px;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 24px rgba(176, 228, 84, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.botao-finalizar-registo:hover {
+    background-color: var(--accent) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(176, 228, 84, 0.4);
+}
+
+/* Links e Rodapé do Card */
+.divisoria-rodape {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(234, 255, 208, 0.1);
+    text-align: center;
+}
+
+.texto-redirecionamento {
+    font-size: 0.9rem;
+    color: rgba(234, 255, 208, 0.5) !important;
+}
+
+.link-navegacao.text-personalizado {
+    color: var(--accent) !important;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.link-navegacao.text-personalizado:hover {
+    text-decoration: underline;
+    opacity: 0.9;
+}
+
+/* Ajustes finos de responsividade para telas pequenas */
+@media (max-width: 480px) {
+    .card-cadastro {
+        padding: 25px 20px;
+    }
+}
