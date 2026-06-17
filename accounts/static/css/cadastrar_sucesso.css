@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --bg: #0D0D0D;
+    --text: #EAFFD0;
+    --primary: #224F10;
+    --accent: #B0E454;
+    --card-bg: rgba(20, 20, 20, 0.75);
+    --error-main: #3d1414;
+    --error-accent: #ef4444;
+}
+
+body {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+/* O efeito de luz de fundo se adapta se você usar a lógica do Django no HTML, 
+   ou você pode fixar uma cor trocando a tag abaixo por var(--primary) */
+body::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--primary);
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.35;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.card-notificacao {
+    background: var(--card-bg) !important;
+    border: 1px solid rgba(176, 228, 84, 0.15) !important;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    padding: 40px;
+    border-radius: 24px !important;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6) !important;
+    text-align: center;
+    max-width: 440px;
+    width: 100%;
+    z-index: 1;
+}
+
+/* Customização do Estado de Sucesso */
+.bloco-icone-sucesso {
+    font-size: 65px;
+    color: var(--accent) !important;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(176, 228, 84, 0.3));
+}
+
+.caixa-alerta-validacao {
+    background-color: rgba(255, 248, 225, 0.03) !important;
+    border: 1px solid rgba(176, 228, 84, 0.2);
+    border-left: 4px solid var(--accent) !important;
+    padding: 16px;
+    border-radius: 12px;
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.titulo-alerta-validacao {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--accent) !important;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.texto-alerta-validacao {
+    font-size: 0.82rem;
+    color: rgba(234, 255, 208, 0.7) !important;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+.btn-sucesso {
+    background-color: var(--accent) !important;
+    color: #0D0D0D !important;
+    box-shadow: 0 8px 24px rgba(176, 228, 84, 0.2);
+}
+
+.btn-sucesso:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(176, 228, 84, 0.4);
+}
+
+/* Customização do Estado de Erro */
+.bloco-icone-erro {
+    font-size: 65px;
+    color: var(--error-accent) !important;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.3));
+}
+
+.btn-erro {
+    background-color: transparent !important;
+    color: var(--error-accent) !important;
+    border: 1px solid var(--error-accent) !important;
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.1);
+}
+
+.btn-erro:hover {
+    background-color: var(--error-accent) !important;
+    color: #0D0D0D !important;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(239, 68, 68, 0.3);
+}
+
+/* Estrutura Comum */
+.titulo-notificacao {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ffffff !important;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+}
+
+.descricao-notificacao {
+    color: rgba(234, 255, 208, 0.6) !important;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.botao-acao-principal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none !important;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    width: 100%;
+    transition: all 0.25s ease;
+}
