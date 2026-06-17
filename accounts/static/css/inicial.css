@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root{
     --bg: #0D0D0D;
-    --text: #FBFFF2;          /* Alterado para o novo tom claro */
-    --primary: #124513;       /* Versão escurecida do seu 238926 para o glow sutil de fundo */
-    --accent: #238926;        /* Seu novo verde principal */
+    --text: #EAFFD0;
+    --primary: #1b440b;
+    --accent: #B0E454;
 }
 
 *{
@@ -83,7 +83,7 @@ body > div{
     border-radius: 32px;
 
     background: rgba(13, 13, 13, 0.6);
-    border: 1px solid rgba(35, 137, 38, 0.15); /* Atualizado com o novo verde */
+    border: 1px solid rgba(176, 228, 84, 0.15);
 
     backdrop-filter: blur(20px);
 
@@ -115,7 +115,7 @@ p{
     font-size: 1.2rem;
     line-height: 1.7;
 
-    color: rgba(251, 255, 242, 0.75); /* Atualizado com a opacidade do novo texto */
+    color: rgba(234, 255, 208, 0.75);
 }
 
 /* Botões container */
@@ -147,14 +147,14 @@ a{
 
 a:first-child{
     background: var(--accent);
-    color: #FBFFF2; /* Mudado para o tom claro para garantir contraste com o verde mais escuro */
+    color: #0D0D0D;
 
-    box-shadow: 0 10px 30px rgba(35, 137, 38, 0.25);
+    box-shadow: 0 10px 30px rgba(176, 228, 84, 0.25);
 }
 
 a:first-child:hover{
     transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(35, 137, 38, 0.35);
+    box-shadow: 0 18px 40px rgba(176, 228, 84, 0.35);
 }
 
 /* CRIAR CONTA (secundário) */
@@ -164,11 +164,11 @@ a:last-child{
 
     color: var(--text);
 
-    border: 1px solid rgba(251, 255, 242, 0.2); /* Atualizado com o novo texto */
+    border: 1px solid rgba(234, 255, 208, 0.2);
 }
 
 a:last-child:hover{
-    background: rgba(35, 137, 38, 0.08); /* Efeito de hover usando o novo verde */
+    background: rgba(176, 228, 84, 0.08);
     border-color: var(--accent);
 
     transform: translateY(-4px);
