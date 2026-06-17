@@ -1,1 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
+:root {
+    --bg: #0D0D0D;
+    --text: #EAFFD0;
+    --primary: #224F10;
+    --accent: #B0E454;
+    --card-bg: rgba(13, 13, 13, 0.6);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página e centralização total */
+body {
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg) !important;
+    color: var(--text) !important;
+    padding: 2rem;
+    overflow-x: hidden;
+    position: relative;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Glow moderno de fundo (Bolas de luz) */
+body::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: var(--primary);
+    border-radius: 50%;
+    filter: blur(180px);
+    opacity: .35;
+    top: -200px;
+    right: -150px;
+    z-index: 0;
+}
+
+body::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--accent);
+    border-radius: 50%;
+    filter: blur(200px);
+    opacity: .15;
+    bottom: -200px;
+    left: -150px;
+    z-index: 0;
+}
+
+/* Card central customizado (Glow e Glassmorphism) */
+.card {
+    position: relative;
+    z-index: 2;
+    background: var(--card-bg) !important;
+    border: 1px solid rgba(176, 228, 84, 0.15) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 30px 80px rgba(0,0,0,.6) !important;
+    animation: fadeIn 0.8s ease;
+}
+
+/* Ajustes de textos para herdar a cor do tema */
+h4, .form-label, .text-dark {
+    color: var(--text) !important;
+}
+
+p.text-muted, .small {
+    color: rgba(234, 255, 208, 0.65) !important;
+}
+
+/* Ícone de Formatura Superior */
+.bg-primary {
+    background-color: var(--accent) !important;
+    color: #0D0D0D !important;
+    box-shadow: 0 0 20px rgba(176, 228, 84, 0.3);
+}
+
+/* Inputs customizados (Estilo Dark Moderno) */
+.input-group-text {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(176, 228, 84, 0.2) !important;
+    color: var(--accent) !important;
+}
+
+.input-group-text i {
+    color: var(--accent) !important; /* Força o ícone a ficar verde */
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border-color: rgba(176, 228, 84, 0.2) !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+}
+
+.form-control::placeholder {
+    color: rgba(234, 255, 208, 0.3) !important;
+}
+
+/* Foco nos inputs */
+.form-control:focus {
+    background-color: rgba(255, 255, 255, 0.07) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 10px rgba(176, 228, 84, 0.2) !important;
+    color: #ffffff !important;
+}
+
+/* Botão de Entrar */
+.btn-primary {
+    background-color: var(--accent) !important;
+    border: none !important;
+    color: #0D0D0D !important;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 10px 25px rgba(176, 228, 84, 0.2) !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(176, 228, 84, 0.35) !important;
+}
+
+/* Link de Registro inferior */
+.text-primary, .text-primary-gradient {
+    color: var(--accent) !important;
+    transition: all 0.2s ease;
+}
+
+.text-primary:hover {
+    text-decoration: underline !important;
+    opacity: 0.9;
+}
+
+/* Divisor de rodapé */
+.border-top {
+    border-top: 1px solid rgba(234, 255, 208, 0.1) !important;
+}
+
+/* Alerta de Erro do Django */
+.alert-danger {
+    background-color: rgba(220, 53, 69, 0.2) !important;
+    border: 1px solid rgba(220, 53, 69, 0.4) !important;
+    color: #ff808b !important;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
