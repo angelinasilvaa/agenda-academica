@@ -14,7 +14,6 @@
     box-sizing: border-box;
 }
 
-/* Corpo da página e centralização total */
 body {
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
@@ -28,7 +27,6 @@ body {
     justify-content: center !important;
 }
 
-/* Glow moderno de fundo (Bolas de luz) */
 body::before {
     content: '';
     position: absolute;
@@ -57,7 +55,6 @@ body::after {
     z-index: 0;
 }
 
-/* Card central customizado (Glow e Glassmorphism) */
 .card {
     position: relative;
     z-index: 2;
@@ -69,7 +66,6 @@ body::after {
     animation: fadeIn 0.8s ease;
 }
 
-/* Ajustes de textos para herdar a cor do tema */
 h4, .form-label, .text-dark {
     color: var(--text) !important;
 }
@@ -78,14 +74,12 @@ p.text-muted, .small {
     color: rgba(234, 255, 208, 0.65) !important;
 }
 
-/* Ícone de Formatura Superior */
 .bg-primary {
     background-color: var(--accent) !important;
     color: #0D0D0D !important;
     box-shadow: 0 0 20px rgba(176, 228, 84, 0.3);
 }
 
-/* Inputs customizados (Estilo Dark Moderno) */
 .input-group-text {
     background-color: rgba(255, 255, 255, 0.05) !important;
     border-color: rgba(176, 228, 84, 0.2) !important;
@@ -107,7 +101,6 @@ p.text-muted, .small {
     color: rgba(234, 255, 208, 0.3) !important;
 }
 
-/* Foco nos inputs */
 .form-control:focus {
     background-color: rgba(255, 255, 255, 0.07) !important;
     border-color: var(--accent) !important;
@@ -115,7 +108,6 @@ p.text-muted, .small {
     color: #ffffff !important;
 }
 
-/* Botão de Entrar */
 .btn-primary {
     background-color: var(--accent) !important;
     border: none !important;
@@ -131,7 +123,6 @@ p.text-muted, .small {
     box-shadow: 0 15px 30px rgba(176, 228, 84, 0.35) !important;
 }
 
-/* Link de Registro inferior */
 .text-primary, .text-primary-gradient {
     color: var(--accent) !important;
     transition: all 0.2s ease;
@@ -142,19 +133,16 @@ p.text-muted, .small {
     opacity: 0.9;
 }
 
-/* Divisor de rodapé */
 .border-top {
     border-top: 1px solid rgba(234, 255, 208, 0.1) !important;
 }
 
-/* Alerta de Erro do Django */
 .alert-danger {
     background-color: rgba(220, 53, 69, 0.2) !important;
     border: 1px solid rgba(220, 53, 69, 0.4) !important;
     color: #ff808b !important;
 }
 
-/* Animação de entrada */
 @keyframes fadeIn {
     from {
         opacity: 0;
