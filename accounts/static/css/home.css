@@ -1,3 +1,384 @@
-.subtexto-estudante{
-    font-family: Arial, Helvetica, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --bg: #0D0D0D;
+    --text: #EAFFD0;
+    --primary: #224F10;
+    --accent: #B0E454;
+    --card-bg: rgba(20, 20, 20, 0.6);
+    --sidebar-bg: #12161A;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg) !important;
+    color: var(--text) !important;
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Layout Estrutural */
+.wrapper-layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Glows de fundo (Efeito futurista) */
+.wrapper-layout::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: var(--primary);
+    border-radius: 50%;
+    filter: blur(180px);
+    opacity: .25;
+    top: -100px;
+    right: -100px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Sidebar Customizada */
+.sidebar-cinza {
+    width: 260px;
+    background-color: var(--sidebar-bg) !important;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    padding: 30px 20px;
+    border-right: 1px solid rgba(176, 228, 84, 0.1);
+    flex-shrink: 0;
+    z-index: 5;
+}
+
+.avatar-fixo-redondo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50% !important;
+    object-fit: cover;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 15px rgba(176, 228, 84, 0.3);
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.avatar-icon-lateral {
+    font-size: 80px;
+    color: rgba(234, 255, 208, 0.4);
+    line-height: 1;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.nome-usuario {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    display: block;
+}
+
+.subtexto-estudante {
+    font-size: 0.68rem;
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 4px;
+}
+
+.botao-sair-container {
+    border-top: 1px solid rgba(234, 255, 208, 0.1);
+    padding-top: 20px;
+}
+
+.btn-logout-lateral {
+    width: 100%;
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-logout-lateral:hover {
+    background-color: #ef4444;
+    color: white;
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+}
+
+/* Área de Conteúdo Principal */
+.conteudo-principal {
+    flex-grow: 1;
+    padding: 40px;
+    overflow-y: auto;
+    z-index: 2;
+}
+
+.titulo-pagina {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: -1px;
+    margin-bottom: 35px;
+}
+
+.titulo-pagina i {
+    color: var(--accent) !important;
+    margin-right: 0.75rem;
+    filter: drop-shadow(0 0 8px rgba(176, 228, 84, 0.5));
+}
+
+/* Layout de Fluxo - Transformado em Grid Lado a Lado para telas grandes */
+.fluxo-vertical-conteudo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    align-items: start;
+}
+
+/* Caixas de Alerta (Aviso de pendências) */
+.caixa-alerta-compromissos {
+    background-color: rgba(255, 193, 7, 0.1) !important;
+    border: 1px solid rgba(255, 193, 7, 0.3) !important;
+    border-left: 4px solid #ffc107 !important;
+    color: #ffe082 !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    margin-bottom: 2rem;
+    padding: 1.2rem;
+    border-radius: 12px;
+    max-width: 100%;
+}
+
+.titulo-alerta-compromissos {
+    font-weight: 700;
+    color: #ffc107;
+}
+
+.lista-alerta-compromissos li {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Formulário de Cadastro de Eventos (Cards Estilo Glassmorphism) */
+.card-formulario-compromisso, .suap-box {
+    background: var(--card-bg) !important;
+    border: 1px solid rgba(176, 228, 84, 0.15) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 25px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4) !important;
+    max-width: 100% !important;
+    width: 100%;
+}
+
+.titulo-card-compromisso, .titulo-calendario-suap, .titulo-lista-compromissos {
+    font-weight: 800;
+    color: var(--text) !important;
+    font-size: 1.1rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-transform: none !important;
+}
+
+.titulo-card-compromisso i, .titulo-calendario-suap i, .titulo-lista-compromissos i {
+    color: var(--accent) !important;
+}
+
+/* Inputs do Painel */
+.entrada-texto-painel, .selecao-campo-painel, .area-textarea-painel {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(176, 228, 84, 0.2) !important;
+    color: #ffffff !important;
+    padding: 10px 14px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.entrada-texto-painel:focus, .selecao-campo-painel:focus, .area-textarea-painel:focus {
+    background-color: rgba(255, 255, 255, 0.07) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 12px rgba(176, 228, 84, 0.25) !important;
+    outline: none;
+}
+
+.etiqueta-campo-painel {
+    color: rgba(234, 255, 208, 0.8);
+    font-weight: 600;
+}
+
+/* Botão de Agendar (Principal Verde) */
+.btn-submeter-formulario {
+    background-color: var(--accent) !important;
+    color: #0D0D0D !important;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 12px;
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 20px rgba(176, 228, 84, 0.2);
+}
+
+.btn-submeter-formulario:hover {
+    background-color: var(--accent) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(176, 228, 84, 0.35);
+}
+
+/* FullCalendar Customização Dark */
+#calendar {
+    font-size: 0.8rem;
+    color: #ffffff;
+    border: none;
+    margin-bottom: 25px;
+}
+
+.fc .fc-toolbar-title {
+    color: var(--text) !important;
+    font-size: 0.95rem !important;
+}
+
+.fc .fc-button-primary {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(176, 228, 84, 0.2) !important;
+    color: var(--text) !important;
+    font-weight: bold;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: var(--accent) !important;
+    color: #000000 !important;
+}
+
+.fc-theme-standard td, .fc-theme-standard th {
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Lista de Cards de Eventos Agendados */
+.bloco-compromissos-container {
+    border-top: 1px solid rgba(234, 255, 208, 0.1);
+    padding-top: 15px;
+}
+
+.card-evento-unico {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding: 14px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+}
+
+.card-evento-unico:hover {
+    transform: translateX(4px);
+}
+
+.texto-titulo-evento {
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.bloco-metadados-evento {
+    color: rgba(234, 255, 208, 0.5) !important;
+    font-size: 0.75rem;
+}
+
+/* Badges (Crachás) de Categoria */
+.etiqueta-tipo-evento {
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-weight: 800;
+}
+
+.cracha-vermelho { background-color: #dc3545; color: #fff; }
+.cracha-laranja { background-color: #fd7e14; color: #fff; }
+.cracha-verde { background-color: #198754; color: #fff; }
+.cracha-azul { background-color: #0d6efd; color: #fff; }
+
+/* Botões de Ação da Lista */
+.bloco-botoes-acao-evento {
+    margin-top: 5px;
+}
+
+.btn-acao-concluir {
+    border: 1px solid var(--accent) !important;
+    color: var(--accent) !important;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-acao-concluir:hover {
+    background-color: var(--accent) !important;
+    color: #0d0d0d !important;
+}
+
+.btn-acao-eliminar {
+    border: 1px solid #ef4444 !important;
+    color: #ef4444 !important;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.btn-acao-eliminar:hover {
+    background-color: #ef4444 !important;
+    color: white !important;
+}
+
+.indicador-evento-concluido {
+    color: #a3a3a3 !important;
+    font-weight: bold;
+}
+
+.caixa-sem-compromissos {
+    color: rgba(234, 255, 208, 0.4);
+    font-style: italic;
+}
+
+/* Modificadores de Borda Lateral dos Eventos */
+.borda-concluido { border-left: 4px solid #4b5563 !important; background: rgba(255, 255, 255, 0.01) !important; opacity: 0.6; }
+.borda-prova { border-left: 4px solid #dc3545 !important; }
+.borda-trabalho { border-left: 4px solid #fd7e14 !important; }
+.borda-atividade { border-left: 4px solid #198754 !important; }
+.borda-padrao { border-left: 4px solid #0d6efd !important; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .wrapper-layout {
+        flex-direction: column;
+    }
+    .sidebar-cinza {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        border-right: none;
+        border-bottom: 1px solid rgba(176, 228, 84, 0.1);
+    }
+    .conteudo-principal {
+        padding: 20px;
+    }
+    .fluxo-vertical-conteudo {
+        grid-template-columns: 1fr;
+    }
 }
