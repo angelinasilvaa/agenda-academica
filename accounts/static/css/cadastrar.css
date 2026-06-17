@@ -29,7 +29,6 @@ body.fundo-autenticacao {
     overflow-x: hidden;
 }
 
-/* Efeito de Luz de Fundo (Glow Futurista) */
 body.fundo-autenticacao::before {
     content: '';
     position: absolute;
@@ -46,7 +45,6 @@ body.fundo-autenticacao::before {
     pointer-events: none;
 }
 
-/* Centralização e Estrutura do Card */
 .card-cadastro {
     background: var(--card-bg) !important;
     border: 1px solid rgba(176, 228, 84, 0.15) !important;
@@ -60,7 +58,6 @@ body.fundo-autenticacao::before {
     z-index: 1;
 }
 
-/* Cabeçalho do Formulário */
 .topo-formulario {
     text-align: center;
     margin-bottom: 30px;
@@ -96,7 +93,6 @@ body.fundo-autenticacao::before {
     font-weight: 400;
 }
 
-/* Alertas de Erro Globais */
 .caixa-alerta-erro {
     background-color: rgba(239, 68, 68, 0.1) !important;
     border: 1px solid rgba(239, 68, 68, 0.2) !important;
@@ -111,7 +107,6 @@ body.fundo-autenticacao::before {
     gap: 8px;
 }
 
-/* Blocos de Campos do Formulário */
 .bloco-campo {
     margin-bottom: 20px;
     text-align: left;
@@ -125,7 +120,6 @@ body.fundo-autenticacao::before {
     display: block;
 }
 
-/* Grupo de Inputs com Ícone Lateral */
 .grupo-caixa-texto {
     display: flex;
     border-radius: 12px;
@@ -155,7 +149,6 @@ body.fundo-autenticacao::before {
     color: rgba(234, 255, 208, 0.5) !important;
 }
 
-/* Campos de Texto e Upload */
 .entrada-texto {
     background-color: transparent !important;
     border: none !important;
@@ -170,7 +163,6 @@ body.fundo-autenticacao::before {
     color: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Estilo para campos do tipo File (Input de foto) */
 .entrada-texto[type="file"] {
     color: rgba(234, 255, 208, 0.6) !important;
     font-size: 0.85rem;
@@ -194,7 +186,6 @@ body.fundo-autenticacao::before {
     color: #000000;
 }
 
-/* Estados de Erro específicos no Input */
 .entrada-com-erro {
     border-color: rgba(239, 68, 68, 0.5) !important;
 }
@@ -207,7 +198,6 @@ body.fundo-autenticacao::before {
     padding-left: 4px;
 }
 
-/* Botão de Finalizar Registro (Neon Principal) */
 .botao-finalizar-registo {
     width: 100%;
     background-color: var(--accent) !important;
@@ -233,7 +223,6 @@ body.fundo-autenticacao::before {
     box-shadow: 0 12px 30px rgba(176, 228, 84, 0.4);
 }
 
-/* Links e Rodapé do Card */
 .divisoria-rodape {
     margin-top: 30px;
     padding-top: 20px;
@@ -258,7 +247,6 @@ body.fundo-autenticacao::before {
     opacity: 0.9;
 }
 
-/* Ajustes finos de responsividade para telas pequenas */
 @media (max-width: 480px) {
     .card-cadastro {
         padding: 25px 20px;
