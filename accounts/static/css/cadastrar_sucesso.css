@@ -23,8 +23,6 @@ body {
     overflow: hidden;
 }
 
-/* O efeito de luz de fundo se adapta se você usar a lógica do Django no HTML, 
-   ou você pode fixar uma cor trocando a tag abaixo por var(--primary) */
 body::before {
     content: '';
     position: absolute;
@@ -55,7 +53,6 @@ body::before {
     z-index: 1;
 }
 
-/* Customização do Estado de Sucesso */
 .bloco-icone-sucesso {
     font-size: 65px;
     color: var(--accent) !important;
@@ -101,7 +98,6 @@ body::before {
     box-shadow: 0 12px 30px rgba(176, 228, 84, 0.4);
 }
 
-/* Customização do Estado de Erro */
 .bloco-icone-erro {
     font-size: 65px;
     color: var(--error-accent) !important;
@@ -123,7 +119,6 @@ body::before {
     box-shadow: 0 12px 30px rgba(239, 68, 68, 0.3);
 }
 
-/* Estrutura Comum */
 .titulo-notificacao {
     font-size: 1.6rem;
     font-weight: 800;
