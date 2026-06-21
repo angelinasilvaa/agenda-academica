@@ -23,6 +23,7 @@ body {
     overflow: hidden;
 }
 
+
 body::before {
     content: '';
     position: absolute;
@@ -52,6 +53,7 @@ body::before {
     width: 100%;
     z-index: 1;
 }
+
 
 .bloco-icone-sucesso {
     font-size: 65px;
